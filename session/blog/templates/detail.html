@@ -5,7 +5,7 @@
 <p>{{blog.content}}</p>
 
 {% if blog.image %}
-<img src="{{blog.image.url}}" alt="이미지">
+<img src="{{blog.image.url}}" alt="이미지" />
 {% endif %}
 
 <p>{{blog.created_at}}</p>
@@ -13,3 +13,10 @@
 <a href="{% url 'home' %}">홈</a>
 <a href="{% url 'edit' blog.id %}">수정하기</a>
 <a href="{% url 'delete' blog.id %}">삭제하기</a>
+<a href="{% url 'new_comment' blog.id %}">댓글 달기</a>
+
+{% for comment in comments %}
+<p>{{comment.content}}</p>
+<p>{{comment.created_at}}</p>
+<!-- <a href="{% url 'edit_comment' comment.id %}">수정하기</a> -->
+{% endfor %}
