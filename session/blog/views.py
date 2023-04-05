@@ -12,7 +12,8 @@ def home(request):
 
 def detail(request, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)
-    return render(request,'detail.html',{'blog':blog})
+    comments = Comment.objects.filter(blog=blog)
+    return render(request,'detail.html',{'blog':blog, 'comments':comments})
 
 def new(request):
     return render(request,'new.html')

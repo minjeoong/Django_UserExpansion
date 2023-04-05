@@ -16,7 +16,7 @@
 <a href="{% url 'new_comment' blog.id %}">댓글 달기</a>
 
 {% for comment in comments %}
+<hr />
 <p>{{comment.content}}</p>
 <p>{{comment.created_at}}</p>
-<!-- <a href="{% url 'edit_comment' comment.id %}">수정하기</a> -->
 {% endfor %}

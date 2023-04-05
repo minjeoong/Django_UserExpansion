@@ -6,7 +6,7 @@ class Blog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
     image = models.ImageField(upload_to='blog/', null=True)
-    author = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     class Meta:
         db_table = 'blog'
@@ -22,7 +22,7 @@ class Comment(models.Model):
     content = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE, null=True)
-    author = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     class Meta:
         db_table = 'comment'
