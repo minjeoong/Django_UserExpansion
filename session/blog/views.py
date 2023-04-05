@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from django.core.paginator import Paginator
-from .models import Blog
+from .models import Blog, Comment
 
 
 def home(request):
@@ -51,4 +51,15 @@ def delete(request, blog_id):
     return redirect('home')
 
 
+def create_comment(request, blog_id):
+    comment = Comment()
+    comment.content = request.POST.get('content')
+    comment.blog = get_object_or_404(Blog, pk=blog_id)
+    comment.author = request.user
+    comment.save()
+    return redirect('detail', blog_id)
 
+
+def new_comment(request, blog_id):
+    blog = get_object_or_404(Blog, pk=blog_id)
+    return render(request, 'new_comment.html', {'blog':blog})
