@@ -7,6 +7,7 @@ class Blog(models.Model):
     content = models.TextField()
     image = models.ImageField(upload_to='blog/', null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    tag = models.ManyToManyField('Tag', blank=True)
 
     class Meta:
         db_table = 'blog'
@@ -29,3 +30,13 @@ class Comment(models.Model):
     
     def __str__(self):
         return self.content + ' | ' + str(self.author)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=20)
+
+    class Meta:
+        db_table = 'tag'
+
+    def __str__(self):
+        return self.name
