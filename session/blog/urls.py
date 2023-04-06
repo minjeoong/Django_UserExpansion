@@ -9,4 +9,5 @@ urlpatterns = [
     path('blog/edit/<int:blog_id>/', views.edit, name='edit'),
     path('blog/update/<int:blog_id>/', views.update, name='update'),
     path('blog/delete/<int:blog_id>/', views.delete, name='delete')
+    # TODO: new_comment, create_comment 추가
 ]

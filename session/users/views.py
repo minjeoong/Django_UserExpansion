@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+# TODO: 회원가입
+
+# TODO: 로그인
+
+# TODO: 로그아웃

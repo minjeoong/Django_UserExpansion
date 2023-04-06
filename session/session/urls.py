@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
+    # TODO: user url 추가
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-# 127.0.0.1:8000/blog

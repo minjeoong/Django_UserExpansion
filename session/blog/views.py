@@ -13,9 +13,13 @@ def home(request):
 
 def detail(request, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)
+    # TODO: Comment 추가
+
+    # TODO: Tag 추가
     return render(request,'detail.html',{'blog':blog})
 
 def new(request):
+    # TODO: Tag 추가
     return render(request,'new.html')
 
 def create(request):
@@ -23,22 +27,18 @@ def create(request):
     new_blog.title = request.POST.get('title')
     new_blog.content = request.POST.get('content')
     new_blog.image = request.FILES.get('image')
-    new_blog.save()
-    return redirect('detail', new_blog.id)
-    # return render(request, 'detail.html', {'blog':new_blog})
+    # TODO: author 추가
 
-# def create(request):
-#     form = BlogForm(request.POST)
-#
-#     if form.is_valid():
-#         new_blog = form.save(commit=False)
-#         new_blog.save()
-#         return redirect('detail', new_blog.id)
-#
-#     return render(request, 'new.html')
+    new_blog.save()
+
+    # TODO: tags 추가
+    return redirect('detail', new_blog.id)
 
 def edit(request, blog_id):
-    edit_blog = get_object_or_404(Blog, pk=blog_id) # print() 해보기
+    edit_blog = get_object_or_404(Blog, pk=blog_id)
+
+    # TODO: 본인이 쓴 글이 아니면 home으로 redirect
+
     return render(request, 'edit.html', {'edit_blog':edit_blog})
 
 
@@ -68,5 +68,4 @@ def delete(request, blog_id):
     delete_blog.delete()
     return redirect('home')
 
-
-
+# TODO: new_comment, create_comment 추가

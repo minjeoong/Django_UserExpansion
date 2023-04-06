@@ -7,6 +7,10 @@ class Blog(models.Model):
     content = models.TextField()
     image = models.ImageField(upload_to='blog/', null=True)
 
+    # TODO: author 추가
+
+    # TODO: tag 추가
+
     class Meta:
         db_table = 'blog'
     
@@ -15,3 +19,9 @@ class Blog(models.Model):
     
     def summary(self):
         return self.content[:100]
+
+
+# TODO: Comment 모델 추가
+
+
+# TODO: Tag 모델 추가

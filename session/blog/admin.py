@@ -1,4 +1,5 @@
 from django.contrib import admin
 from .models import *
-# Register your models here.
+
+# TODO: BlogAdmin 변경, Comment 등록, Tag 등록
 admin.site.register(Blog)
