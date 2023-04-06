@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <div class="wrapper" style="text-align: center">
   <h1>회원가입</h1>
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %} 아이디: <br />
     <input name="username" type="text" />
     <br />
@@ -13,7 +13,12 @@
     <br />
     이메일: <br />
     <input name="email" type="email" />
+    <br />
+    닉네임: <br />
+    <input name="nickname" type="text" />
     <br /><br />
+    사진 : <input type="file" name="profile_image" />
+    <br />
     <input type="submit" class="btn btn-primary" value="Sign Up" />
   </form>
 </div>
