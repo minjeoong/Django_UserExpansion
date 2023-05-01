@@ -25,7 +25,8 @@
 <a href="{% url 'edit' blog.id %}">수정하기</a>
 <a href="{% url 'delete' blog.id %}">삭제하기</a>
 <a href="{% url 'new_comment' blog.id %}">댓글 달기</a>
-
+<a href ="{% url 'like' blog.id %}">따봉</a>
+<span>따봉 갯수 : {{ likes }}</span>
 {% for comment in comments %}
 <hr />
 <p>{{comment.content}}</p>

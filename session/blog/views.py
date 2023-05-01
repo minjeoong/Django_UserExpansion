@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
-from .models import Blog, Comment, Tag
+from .models import Blog, Comment, Tag, Like
 
 
 def home(request):
@@ -15,8 +15,9 @@ def detail(request, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)
     comments = Comment.objects.filter(blog=blog)
     tags = blog.tag.all()
-
-    return render(request, 'detail.html', {'blog': blog, 'comments': comments, 'tags': tags})
+    #좋아요 개수
+    likes = len(Like.objects.filter(blog=blog))
+    return render(request, 'detail.html', {'blog': blog, 'comments': comments, 'tags': tags, 'likes':likes})
 
 
 def new(request):
@@ -62,8 +63,10 @@ def update(request, blog_id):
 
 def delete(request, blog_id):
     delete_blog = get_object_or_404(Blog, pk=blog_id)
-    delete_blog.delete()
-    return redirect('home')
+    if request.user == delete_blog.author:
+        delete_blog.delete()
+        return redirect('home')
+    return redirect('detail', delete_blog.id)
 
 
 def create_comment(request, blog_id):
@@ -78,3 +81,21 @@ def create_comment(request, blog_id):
 def new_comment(request, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)
     return render(request, 'new_comment.html', {'blog': blog})
+
+
+def like(request, blog_id):
+    # 만약 로그인 한 유저가 아니라면,
+    #로그인 하지 않았다면 좋아요를 못 누르고 로그인하기로 이동
+    if request.user.is_anonymous:
+            return redirect("users:signin")
+    # 현재 로그인한 유저가 해당 글의 like 객체를 만든 것이 존재한다면. - 이미 좋아요를 누른 상태 -> detail 로 이동
+
+    if Like.objects.filter(likedUser=request.user, blog_id=blog_id):
+        return redirect("detail", blog_id)
+
+    #현재 로그인한 사용자가 해당 글에 like 객체를 만든 것이 존재하지 않는다면 Like 객체 만들기
+    like = Like()
+    like.blog = get_object_or_404(Blog, pk=blog_id)
+    like.likedUser = request.user
+    like.save()
+    return redirect("detail", blog_id)
